@@ -95,34 +95,44 @@ export default class Toast extends Component {
     }
 
     render() {
-        let pos;
+        let offset
+        const isPositionTop = this.props.position === 'top'
+        const isPositionCenter = this.props.position === 'center'
+        const isPositionBottom = this.props.position === 'bottom'
         switch (this.props.position) {
-            case 'top':
-                pos = this.props.positionValue;
-                break;
-            case 'center':
-                pos = height / 2;
-                break;
-            case 'bottom':
-                pos = height - this.props.positionValue;
-                break;
+          case 'top':
+            offset = this.props.positionValue
+            break
+          case 'center':
+            offset = height / 2
+            break
+          case 'bottom':
+            offset = this.props.positionValue
+            break
         }
-
-        const view = this.state.isShow ?
-        <TouchableWithoutFeedback onPress={this.onPress} >
+    
+        const view = this.state.isShow ? (
+          <TouchableWithoutFeedback onPress={this.onPress}>
             <View
-                style={[styles.container, { top: pos }]}
-                pointerEvents="auto"
+              style={[
+                styles.container,
+                isPositionTop && { top: offset },
+                isPositionCenter && { top: offset },
+                isPositionBottom && { bottom: offset },
+              ]}
+              pointerEvents="auto"
             >
-                <Animated.View
-                    style={[styles.content, { opacity: this.state.opacityValue }, this.props.style]}
-                >
-                    {React.isValidElement(this.state.text) ? this.state.text : <Text style={this.props.textStyle}>{this.state.text}</Text>}
-                </Animated.View>
+              <Animated.View style={[styles.content, { opacity: this.state.opacityValue }, this.props.style]}>
+                {React.isValidElement(this.state.text) ? (
+                  this.state.text
+                ) : (
+                  <Text style={this.props.textStyle}>{this.state.text}</Text>
+                )}
+              </Animated.View>
             </View>
-        </TouchableWithoutFeedback>
-            : null;
-        return view;
+          </TouchableWithoutFeedback>
+        ) : null
+        return view
     }
 }
 
