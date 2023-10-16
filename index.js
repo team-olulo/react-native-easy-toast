@@ -17,7 +17,7 @@ import {
 } from 'react-native'
 
 import PropTypes from 'prop-types';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+import { ViewPropTypes, TextPropTypes } from 'deprecated-react-native-prop-types';
 export const DURATION = {
     LENGTH_SHORT: 500,
     FOREVER: 0,
@@ -162,7 +162,7 @@ Toast.propTypes = {
         'center',
         'bottom',
     ]),
-    textStyle: Text.propTypes.style,
+    textStyle: TextPropTypes.style,
     positionValue:PropTypes.number,
     fadeInDuration:PropTypes.number,
     fadeOutDuration:PropTypes.number,
